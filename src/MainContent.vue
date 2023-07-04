@@ -68,9 +68,9 @@
             <div class="flex flex-wrap gap-2">
               <div>{{ item.role }}</div>
               <div>{{ item.level }}</div>
-              <div>{{ item.languages.pop(1) }}</div>
-              <div>{{ item.languages.pop(2) }}</div>
-              <div>{{ item.languages.pop(3) }}</div>
+              <div v-for="language in item.languages">
+                {{ language }}
+              </div>
             </div>
           </div>
         </div>
