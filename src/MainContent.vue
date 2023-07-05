@@ -47,7 +47,9 @@
       <div class="md:flex md:justify-between items-center">
         <div>
           <div class="flex gap-2 items-center mb-2">
-            <div class="mr-2 text-primary font-bold">{{ item.company }}</div>
+            <div class="mr-2 text-primary font-bold">
+              {{ item.company }}
+            </div>
 
             <div
               class="uppercase bg-primary p-1 rounded-xl text-white"
