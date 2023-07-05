@@ -3,21 +3,19 @@
   <!-- For now, hidden -->
   <Transition name="fade">
     <div
-      class="z-40 justify-center border-2 rounded-lg border-none shadow-xl max-w-7xl w-11/12 m-auto relative -top-8"
+      class="z-50 border-2 gap-4 p-4 flex rounded-lg border-none shadow-xl max-w-7xl w-11/12 m-auto relative -top-8"
+      v-if="isAddItem"
     >
-      <div class="flex gap-4 mt-8 ml-28 border-2" v-if="isAddItem">
-        <div class="flex items-center" v-for="tag in selectedTags" :key="tag">
-          <div class="text-primary text-lg p-1 font-bold bg-slate-200">
-            {{ tag }}
-          </div>
-          <div
-            class="cursor-pointer rounded-sm bg-primary hover:bg-veryDarkGrayishCyan p-2"
-            @click="removeTag(tag)"
-          >
-            <img class="w-5" src="images/icon-remove.svg" alt="" />
-          </div>
+      <div class="flex" v-for="tag in selectedTags" :key="tag">
+        <div class="text-primary text-lg p-1 font-bold bg-slate-200 flex">
+          {{ tag }}
         </div>
-        <div class="">Clear</div>
+        <div
+          class="cursor-pointer rounded-sm bg-primary hover:bg-veryDarkGrayishCyan p-2"
+          @click="removeTag(tag)"
+        >
+          <img class="w-5" src="images/icon-remove.svg" alt="" />
+        </div>
       </div>
     </div>
   </Transition>
@@ -146,10 +144,10 @@ const selectJob = ref("");
 //   selectJob.value = "";
 // };
 
-const isAddItem = ref(true);
+const isAddItem = ref(false);
 
 const addItem = () => {
-  isAddItem.value;
+  isAddItem.value = true;
 };
 
 // test test test
