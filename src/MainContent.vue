@@ -1,6 +1,6 @@
 <template>
-  <!-- Searchbox -->
-  <!-- For now, hidden -->
+  <!-- Filter -->
+  <!-- Hidden at first -->
   <Transition name="fade">
     <div
       class="z-50 flex-wrap bg-white flex rounded-lg max-w-7xl w-11/12 m-auto shadow-xl relative -top-8"
@@ -16,19 +16,15 @@
         >
           <img class="w-5" src="images/icon-remove.svg" alt="" />
         </div>
-      </div>
-      <div
-        class="absolute right-0 -translate-x-6 top-1/2 -translate-y-1/2"
-        v-if="isAddItem"
-      >
-        Clear
+        <div
+          class="absolute right-0 -translate-x-6 top-1/2 -translate-y-1/2 cursor-pointer"
+          @click="removeTagAll"
+        >
+          Clear
+        </div>
       </div>
     </div>
   </Transition>
-  <!-- End searchbox -->
-  <!-- Filtering tags -->
-
-  <!-- End filtering tags -->
   <div
     v-for="item in filteredItems"
     :key="item.id"
@@ -144,12 +140,6 @@ const getImageId = (id) => {
   return images[imageIndex].src;
 };
 
-const selectJob = ref("");
-
-// const clearSearch = () => {
-//   selectJob.value = "";
-// };
-
 const isAddItem = ref(false);
 
 const addItem = () => {
@@ -173,6 +163,15 @@ const toggleTag = (tag) => {
 // Function to remove a specific tag
 const removeTag = (tag) => {
   selectedTags.value = selectedTags.value.filter((t) => t !== tag);
+  // <= so it does the animation when there is only one left, otherwise it removes them all
+  if (selectedTags.value <= 1) {
+    isAddItem.value = false;
+  }
+};
+
+const removeTagAll = () => {
+  selectedTags.value = [];
+  isAddItem.value = false;
 };
 
 // Function to filter items based on selected tags
