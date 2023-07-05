@@ -3,10 +3,10 @@
   <!-- For now, hidden -->
   <Transition name="fade">
     <div
-      class="z-50 border-2 gap-4 p-4 flex rounded-lg border-none shadow-xl max-w-7xl w-11/12 m-auto relative -top-8"
+      class="z-50 flex-wrap bg-white flex rounded-lg max-w-7xl w-11/12 m-auto shadow-xl relative -top-8"
       v-if="isAddItem"
     >
-      <div class="flex" v-for="tag in selectedTags" :key="tag">
+      <div class="flex p-4" v-for="tag in selectedTags" :key="tag">
         <div class="text-primary text-lg p-1 font-bold bg-slate-200 flex">
           {{ tag }}
         </div>
@@ -16,6 +16,12 @@
         >
           <img class="w-5" src="images/icon-remove.svg" alt="" />
         </div>
+      </div>
+      <div
+        class="absolute right-0 -translate-x-6 top-1/2 -translate-y-1/2"
+        v-if="isAddItem"
+      >
+        Clear
       </div>
     </div>
   </Transition>
