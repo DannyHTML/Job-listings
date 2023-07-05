@@ -1,32 +1,35 @@
 <template>
   <!-- Searchbox -->
   <!-- For now, hidden -->
-  <div
-    class="justify-center border-2 rounded-lg border-none shadow-xl overflow-hidden max-w-7xl w-11/12 m-auto relative -top-8"
-  >
-    <div class="relative w-full">
-      <input
-        class="w-full h-16 pl-4 outline-none"
-        type="text"
-        name="search"
-        id="search"
-        v-model="selectJob"
-        @input="Input"
-        autocomplete="off"
-      />
-      <button
-        class="absolute top-1/2 -translate-y-1/2 text-lg capitalize right-0 -translate-x-1/2 text-darkGrayishCyan hover:font-bold decoration-2 hover:cursor-pointer hover:underline hover:underline-offset-4"
-        @click="clearSearch"
-      >
-        clear
-      </button>
+  <Transition name="fade">
+    <div
+      class="justify-center border-2 rounded-lg border-none shadow-xl overflow-hidden max-w-7xl w-11/12 m-auto relative -top-8"
+      v-if="!isAddItem"
+    >
+      <div class="relative w-full">
+        <input
+          class="w-full h-16 pl-4 outline-none"
+          type="text"
+          name="search"
+          id="search"
+          v-model="selectJob"
+          autocomplete="off"
+        />
+        <button
+          class="absolute top-1/2 -translate-y-1/2 text-lg capitalize right-0 -translate-x-1/2 text-darkGrayishCyan hover:font-bold decoration-2 hover:cursor-pointer hover:underline hover:underline-offset-4"
+          @click="clearSearch"
+        >
+          clear
+        </button>
+      </div>
     </div>
-  </div>
+  </Transition>
   <!-- End searchbox -->
   <div
     v-for="item in items"
     :key="item.id"
-    class="relative border-2 mt-12 h-64 md:h-44 bg-white border-transparent max-w-7xl w-11/12 rounded-md m-auto shadow-xl last:mb-12"
+    class="relative border-2 border-transparent mt-12 h-64 md:h-44 bg-white max-w-7xl w-11/12 rounded-md m-auto shadow-xl last:mb-12"
+    :class="{ 'border-l-4 border-l-primary': item.featured }"
   >
     <div
       class="absolute md:-translate-y-1/2 md:top-1/2 md:translate-x-1/2 top-0 md:left-1 left-0 translate-x-5 -translate-y-1/2"
@@ -57,7 +60,7 @@
             </div>
           </div>
           <div
-            class="text-black font-bold mb-2 hover:text-primary hover: cursor-pointer md:text-xl"
+            class="text-black font-bold mb-2 hover:text-primary hover:cursor-pointer md:text-xl"
           >
             {{ item.position }}
           </div>
@@ -80,14 +83,17 @@
           <div class="flex-wrap gap-4 flex text-primary font-bold">
             <div
               class="bg-filterTabs p-1 rounded-md cursor-pointer hover:text-white hover:bg-primary"
+              @click="addItem"
             >
               {{ item.role }}
             </div>
+
             <div
               class="bg-filterTabs p-1 rounded-md cursor-pointer hover:text-white hover:bg-primary"
             >
               {{ item.level }}
             </div>
+
             <div
               class="bg-filterTabs p-1 rounded-md cursor-pointer hover:text-white hover:bg-primary"
               v-for="language in item.languages"
@@ -132,11 +138,27 @@ const getImageId = (id) => {
   return images[imageIndex].src;
 };
 
-const selectJob = ref();
+const selectJob = ref("");
 
 const clearSearch = () => {
   selectJob.value = "";
 };
+
+const isAddItem = ref(true);
+
+const addItem = () => {
+  isAddItem.value = !isAddItem.value;
+};
 </script>
 
-<style scoped></style>
+<style scoped>
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease-in-out;
+}
+</style>
