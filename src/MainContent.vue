@@ -7,20 +7,23 @@
       v-if="isAddItem"
     >
       <div class="flex p-4" v-for="tag in selectedTags" :key="tag">
-        <div class="text-primary text-lg p-1 font-bold bg-slate-200 flex">
+        <div class="text-primary lg:text-lg p-1 lg:font-bold bg-slate-200 flex">
           {{ tag }}
         </div>
         <div
           class="cursor-pointer rounded-sm bg-primary hover:bg-veryDarkGrayishCyan p-2"
           @click="removeTag(tag)"
         >
-          <img class="w-5" src="images/icon-remove.svg" alt="" />
+          <img class="lg:w-5" src="images/icon-remove.svg" alt="" />
         </div>
         <div
           class="absolute right-0 -translate-x-6 top-1/2 -translate-y-1/2 cursor-pointer"
           @click="removeTagAll"
         >
-          Clear
+          <span
+            class="text-xl hover:underline text-primary hover:underline-offset-2"
+            >Clear</span
+          >
         </div>
       </div>
     </div>
@@ -157,6 +160,7 @@ const toggleTag = (tag) => {
   } else {
     selectedTags.value.push(tag);
   }
+  // Makes the filter comes up with the selected tag/tags
   addItem();
 };
 
@@ -171,6 +175,7 @@ const removeTag = (tag) => {
 
 const removeTagAll = () => {
   selectedTags.value = [];
+  // Makes the transition fade out when clicked on Clear btn
   isAddItem.value = false;
 };
 
