@@ -3,42 +3,27 @@
   <!-- For now, hidden -->
   <Transition name="fade">
     <div
-      class="justify-center border-2 rounded-lg border-none shadow-xl overflow-hidden max-w-7xl w-11/12 m-auto relative -top-8"
-      v-if="!isAddItem"
+      class="z-40 justify-center border-2 rounded-lg border-none shadow-xl max-w-7xl w-11/12 m-auto relative -top-8"
     >
-      <div class="relative w-full">
-        <input
-          class="w-full h-16 pl-4 outline-none"
-          type="text"
-          name="search"
-          id="search"
-          autocomplete="off"
-        />
-        <button
-          class="absolute top-1/2 -translate-y-1/2 text-lg capitalize right-0 -translate-x-1/2 text-darkGrayishCyan hover:font-bold decoration-2 hover:cursor-pointer hover:underline hover:underline-offset-4"
-          @click="clearSearch"
-        >
-          clear
-        </button>
+      <div class="flex gap-4 mt-8 ml-28 border-2" v-if="isAddItem">
+        <div class="flex items-center" v-for="tag in selectedTags" :key="tag">
+          <div class="text-primary text-lg p-1 font-bold bg-slate-200">
+            {{ tag }}
+          </div>
+          <div
+            class="cursor-pointer rounded-sm bg-primary hover:bg-veryDarkGrayishCyan p-2"
+            @click="removeTag(tag)"
+          >
+            <img class="w-5" src="images/icon-remove.svg" alt="" />
+          </div>
+        </div>
+        <div class="">Clear</div>
       </div>
     </div>
   </Transition>
   <!-- End searchbox -->
   <!-- Filtering tags -->
-  <div class="flex gap-4 mt-8 ml-28 border-2">
-    <div class="flex items-center" v-for="tag in selectedTags" :key="tag">
-      <div class="text-primary text-lg p-1 font-bold bg-slate-200">
-        {{ tag }}
-      </div>
-      <div
-        class="cursor-pointer rounded-sm bg-primary hover:bg-veryDarkGrayishCyan p-2"
-        @click="removeTag(tag)"
-      >
-        <img class="w-5" src="images/icon-remove.svg" alt="" />
-      </div>
-      <div class="item-self-end">Clear</div>
-    </div>
-  </div>
+
   <!-- End filtering tags -->
   <div
     v-for="item in filteredItems"
@@ -157,14 +142,14 @@ const getImageId = (id) => {
 
 const selectJob = ref("");
 
-const clearSearch = () => {
-  selectJob.value = "";
-};
+// const clearSearch = () => {
+//   selectJob.value = "";
+// };
 
 const isAddItem = ref(true);
 
 const addItem = () => {
-  isAddItem.value = !isAddItem.value;
+  isAddItem.value;
 };
 
 // test test test
