@@ -6,26 +6,30 @@
       class="z-50 flex-wrap bg-white flex rounded-lg max-w-7xl w-11/12 m-auto shadow-xl relative -top-8"
       v-if="isAddItem"
     >
-      <div class="flex p-4" v-for="tag in selectedTags" :key="tag">
-        <div class="text-primary lg:text-lg p-1 lg:font-bold bg-slate-200 flex">
-          {{ tag }}
-        </div>
-        <div
-          class="cursor-pointer rounded-sm bg-primary hover:bg-veryDarkGrayishCyan p-2"
-          @click="removeTag(tag)"
-        >
-          <img class="lg:w-5" src="/images/icon-remove.svg" alt="" />
-        </div>
-        <div
-          class="absolute right-0 -translate-x-6 top-1/2 -translate-y-1/2 cursor-pointer"
-          @click="removeTagAll"
-        >
-          <span
-            class="text-xl hover:underline text-primary hover:underline-offset-2"
-            >Clear</span
+      <TransitionGroup name="fade">
+        <div class="flex p-4" v-for="tag in selectedTags" :key="tag">
+          <div
+            class="text-primary lg:text-lg p-1 lg:font-bold bg-slate-200 flex"
           >
+            {{ tag }}
+          </div>
+          <div
+            class="cursor-pointer rounded-sm bg-primary hover:bg-veryDarkGrayishCyan p-2"
+            @click="removeTag(tag)"
+          >
+            <img class="lg:w-5" src="/images/icon-remove.svg" alt="" />
+          </div>
+          <div
+            class="absolute right-0 -translate-x-6 top-1/2 -translate-y-1/2 cursor-pointer"
+            @click="removeTagAll"
+          >
+            <span
+              class="text-xl hover:underline text-primary hover:underline-offset-2"
+              >Clear</span
+            >
+          </div>
         </div>
-      </div>
+      </TransitionGroup>
     </div>
   </Transition>
   <TransitionGroup name="slide">
@@ -200,6 +204,8 @@ const filteredItems = computed(() => {
 </script>
 
 <style scoped>
+/* Fade transition */
+.fade-move,
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
@@ -207,16 +213,18 @@ const filteredItems = computed(() => {
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.2s ease-in-out;
+  transition: opacity 0.5s ease-in-out;
 }
 
 /* Slide transition */
 
 .slide-enter-from {
   transform: translateX(120%);
+  opacity: 0;
 }
 .slide-leave-to {
   transform: translateX(-120%);
+  opacity: 0;
 }
 
 .slide-enter-active,
