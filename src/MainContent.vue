@@ -28,91 +28,93 @@
       </div>
     </div>
   </Transition>
-  <div
-    v-for="item in filteredItems"
-    :key="item.id"
-    class="relative border-2 border-transparent mt-12 h-64 md:h-44 bg-white max-w-7xl w-11/12 rounded-md m-auto shadow-xl last:mb-12"
-    :class="{ 'border-l-4 border-l-primary': item.featured }"
-  >
+  <TransitionGroup name="slide">
     <div
-      class="absolute md:-translate-y-1/2 md:top-1/2 md:translate-x-1/2 top-0 md:left-1 left-0 translate-x-5 -translate-y-1/2"
+      v-for="item in filteredItems"
+      :key="item.id"
+      class="relative border-2 border-transparent mt-12 h-64 md:h-44 bg-white max-w-7xl w-11/12 rounded-md m-auto shadow-xl last:mb-12"
+      :class="{ 'border-l-4 border-l-primary': item.featured }"
     >
-      <img
-        class="h-14 object-cover"
-        :src="getImageSrc(item.id)"
-        :alt="getImageId(item.id)"
-      />
-    </div>
-    <div class="mt-10 md:ml-28 w-10/12 m-auto">
-      <div class="md:flex md:justify-between items-center">
-        <div>
-          <div class="flex gap-2 items-center mb-2">
-            <div class="mr-2 text-primary font-bold">
-              {{ item.company }}
-            </div>
+      <div
+        class="absolute md:-translate-y-1/2 md:top-1/2 md:translate-x-1/2 top-0 md:left-1 left-0 translate-x-5 -translate-y-1/2"
+      >
+        <img
+          class="h-14 object-cover"
+          :src="getImageSrc(item.id)"
+          :alt="getImageId(item.id)"
+        />
+      </div>
+      <div class="mt-10 md:ml-28 w-10/12 m-auto">
+        <div class="md:flex md:justify-between items-center">
+          <div>
+            <div class="flex gap-2 items-center mb-2">
+              <div class="mr-2 text-primary font-bold">
+                {{ item.company }}
+              </div>
 
-            <div
-              class="uppercase bg-primary p-1 rounded-xl text-white"
-              v-if="item.new"
-            >
-              new!
+              <div
+                class="uppercase bg-primary p-1 rounded-xl text-white"
+                v-if="item.new"
+              >
+                new!
+              </div>
+              <div
+                class="uppercase bg-veryDarkGrayishCyan rounded-xl p-1 text-white"
+                v-if="item.featured"
+              >
+                featured
+              </div>
             </div>
             <div
-              class="uppercase bg-veryDarkGrayishCyan rounded-xl p-1 text-white"
-              v-if="item.featured"
+              class="text-black font-bold mb-2 hover:text-primary hover:cursor-pointer md:text-xl"
             >
-              featured
+              {{ item.position }}
             </div>
+            <div class="flex gap-8">
+              <div>{{ item.postedAt }}</div>
+              <div>
+                <ul class="list-disc">
+                  <li>{{ item.contract }}</li>
+                </ul>
+              </div>
+              <div>
+                <ul class="list-disc">
+                  <li>{{ item.location }}</li>
+                </ul>
+              </div>
+            </div>
+            <div class="mt-2 mb-2 border-b-2 md:border-b-0"></div>
           </div>
-          <div
-            class="text-black font-bold mb-2 hover:text-primary hover:cursor-pointer md:text-xl"
-          >
-            {{ item.position }}
-          </div>
-          <div class="flex gap-8">
-            <div>{{ item.postedAt }}</div>
-            <div>
-              <ul class="list-disc">
-                <li>{{ item.contract }}</li>
-              </ul>
-            </div>
-            <div>
-              <ul class="list-disc">
-                <li>{{ item.location }}</li>
-              </ul>
-            </div>
-          </div>
-          <div class="mt-2 mb-2 border-b-2 md:border-b-0"></div>
-        </div>
-        <div id="tags">
-          <div class="flex-wrap gap-4 flex text-primary font-bold">
-            <div
-              class="bg-filterTabs p-1 rounded-md cursor-pointer hover:text-white hover:bg-primary"
-              @click="toggleTag(item.role)"
-            >
-              {{ item.role }}
-            </div>
+          <div id="tags">
+            <div class="flex-wrap gap-4 flex text-primary font-bold">
+              <div
+                class="bg-filterTabs p-1 rounded-md cursor-pointer hover:text-white hover:bg-primary"
+                @click="toggleTag(item.role)"
+              >
+                {{ item.role }}
+              </div>
 
-            <div
-              class="bg-filterTabs p-1 rounded-md cursor-pointer hover:text-white hover:bg-primary"
-              @click="toggleTag(item.level)"
-            >
-              {{ item.level }}
-            </div>
+              <div
+                class="bg-filterTabs p-1 rounded-md cursor-pointer hover:text-white hover:bg-primary"
+                @click="toggleTag(item.level)"
+              >
+                {{ item.level }}
+              </div>
 
-            <div
-              class="bg-filterTabs p-1 rounded-md cursor-pointer hover:text-white hover:bg-primary"
-              v-for="language in item.languages"
-              :key="language"
-              @click="toggleTag(language)"
-            >
-              {{ language }}
+              <div
+                class="bg-filterTabs p-1 rounded-md cursor-pointer hover:text-white hover:bg-primary"
+                v-for="language in item.languages"
+                :key="language"
+                @click="toggleTag(language)"
+              >
+                {{ language }}
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </TransitionGroup>
 </template>
 
 <script setup>
@@ -206,5 +208,19 @@ const filteredItems = computed(() => {
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.2s ease-in-out;
+}
+
+/* Slide transition */
+
+.slide-enter-from {
+  transform: translateX(120%);
+}
+.slide-leave-to {
+  transform: translateX(-120%);
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: all 0.5s ease-in-out;
 }
 </style>
