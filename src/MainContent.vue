@@ -17,7 +17,7 @@
             class="cursor-pointer rounded-sm bg-primary hover:bg-veryDarkGrayishCyan p-2"
             @click="removeTag(tag)"
           >
-            <img class="lg:w-5" src="/images/icon-remove.svg" alt="" />
+            <img class="lg:w-5" src="images/icon-remove.svg" alt="" />
           </div>
           <div
             class="absolute right-0 -translate-x-6 top-1/2 -translate-y-1/2 cursor-pointer"
@@ -126,16 +126,16 @@ import { computed, ref } from "vue";
 import data from "./assets/data.json";
 
 const images = [
-  { src: "/images/photosnap.svg", alt: "image 1" },
-  { src: "/images/manage.svg", alt: "image 2" },
-  { src: "/images/account.svg", alt: "image 3" },
-  { src: "/images/myhome.svg", alt: "image 4" },
-  { src: "/images/loop-studios.svg", alt: "image 5" },
-  { src: "/images/faceit.svg", alt: "image 6" },
-  { src: "/images/shortly.svg", alt: "image 7" },
-  { src: "/images/insure.svg", alt: "image 8" },
-  { src: "/images/eyecam-co.svg", alt: "image 9" },
-  { src: "/images/the-air-filter-company.svg", alt: "image 10" },
+  { src: "images/photosnap.svg", alt: "image 1" },
+  { src: "images/manage.svg", alt: "image 2" },
+  { src: "images/account.svg", alt: "image 3" },
+  { src: "images/myhome.svg", alt: "image 4" },
+  { src: "images/loop-studios.svg", alt: "image 5" },
+  { src: "images/faceit.svg", alt: "image 6" },
+  { src: "images/shortly.svg", alt: "image 7" },
+  { src: "images/insure.svg", alt: "image 8" },
+  { src: "images/eyecam-co.svg", alt: "image 9" },
+  { src: "images/the-air-filter-company.svg", alt: "image 10" },
 ];
 
 const item = ref(data);
@@ -157,11 +157,8 @@ const addItem = () => {
   isAddItem.value = true;
 };
 
-// test test test
-
 const selectedTags = ref([]);
 
-// Function to add or remove tags based on selection
 const toggleTag = (tag) => {
   if (selectedTags.value.includes(tag)) {
     selectedTags.value = selectedTags.value.filter((t) => t !== tag);
@@ -172,7 +169,6 @@ const toggleTag = (tag) => {
   addItem();
 };
 
-// Function to remove a specific tag
 const removeTag = (tag) => {
   selectedTags.value = selectedTags.value.filter((t) => t !== tag);
   // <= so it does the animation when there is only one left, otherwise it removes them all
@@ -187,7 +183,6 @@ const removeTagAll = () => {
   isAddItem.value = false;
 };
 
-// Function to filter items based on selected tags
 const filteredItems = computed(() => {
   if (selectedTags.value.length === 0) {
     return items;
