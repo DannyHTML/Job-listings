@@ -17,7 +17,11 @@
             class="cursor-pointer rounded-sm bg-primary hover:bg-veryDarkGrayishCyan p-2"
             @click="removeTag(tag)"
           >
-            <img class="lg:w-5" src="images/icon-remove.svg" alt="" />
+            <img
+              class="lg:w-5"
+              src="Job-listings/images/icon-remove.svg"
+              alt=""
+            />
           </div>
           <div
             class="absolute right-0 -translate-x-6 top-1/2 -translate-y-1/2 cursor-pointer"
