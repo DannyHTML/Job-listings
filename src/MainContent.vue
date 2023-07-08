@@ -126,16 +126,16 @@ import { computed, ref } from "vue";
 import data from "./assets/data.json";
 
 const images = [
-  { src: "images/photosnap.svg", alt: "image 1" },
-  { src: "images/manage.svg", alt: "image 2" },
-  { src: "images/account.svg", alt: "image 3" },
-  { src: "images/myhome.svg", alt: "image 4" },
-  { src: "images/loop-studios.svg", alt: "image 5" },
-  { src: "images/faceit.svg", alt: "image 6" },
-  { src: "images/shortly.svg", alt: "image 7" },
-  { src: "images/insure.svg", alt: "image 8" },
-  { src: "images/eyecam-co.svg", alt: "image 9" },
-  { src: "images/the-air-filter-company.svg", alt: "image 10" },
+  { src: "Job-listings/images/photosnap.svg", alt: "image 1" },
+  { src: "Job-listings/images/manage.svg", alt: "image 2" },
+  { src: "Job-listings/images/account.svg", alt: "image 3" },
+  { src: "Job-listings/images/myhome.svg", alt: "image 4" },
+  { src: "Job-listings/images/loop-studios.svg", alt: "image 5" },
+  { src: "Job-listings/images/faceit.svg", alt: "image 6" },
+  { src: "Job-listings/images/shortly.svg", alt: "image 7" },
+  { src: "Job-listings/images/insure.svg", alt: "image 8" },
+  { src: "Job-listings/images/eyecam-co.svg", alt: "image 9" },
+  { src: "Job-listings/images/the-air-filter-company.svg", alt: "image 10" },
 ];
 
 const item = ref(data);
