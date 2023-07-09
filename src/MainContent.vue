@@ -124,6 +124,11 @@
 import { computed, ref } from "vue";
 import data from "./assets/data.json";
 
+// This will give you acces to the json file date and gives you acces to the item's values inside the json file show you can work with it in your template.
+
+const item = ref(data);
+const items = item.value;
+
 const images = [
   { src: "./images/photosnap.svg", alt: "image 1" },
   { src: "./images/manage.svg", alt: "image 2" },
@@ -137,24 +142,32 @@ const images = [
   { src: "./images/the-air-filter-company.svg", alt: "image 10" },
 ];
 
-const item = ref(data);
-const items = item.value;
+// This function will show the correct image in the correct item(div's with jobs) by using id and index.
+// Using -1 so the values starts from 1 and not 0.
 
 const getImageSrc = (id) => {
   const imageIndex = id - 1;
   return images[imageIndex].src;
 };
 
+// This function will show the correct alt-tag in the correct item(div's with jobs) by using id and index.
+// Using -1 so the values starts from 1 and not 0.
+
 const getImageId = (id) => {
   const imageIndex = id - 1;
   return images[imageIndex].src;
 };
+
+//  This variable and funtion makes sure the filter is hidden by default, but when a tag is being selected it will show
+// When no filter array is empty, it will be hidden again.
 
 const isAddItem = ref(false);
 
 const addItem = () => {
   isAddItem.value = true;
 };
+
+// This funtion adds the tag being clicked to the filter which will only appear while atleast 1 tag is active.
 
 const selectedTags = ref([]);
 
@@ -168,6 +181,8 @@ const toggleTag = (tag) => {
   addItem();
 };
 
+// This funtion removes the tag being clicked from the filter. Once no tags left, the filter goes hidden.
+
 const removeTag = (tag) => {
   selectedTags.value = selectedTags.value.filter((t) => t !== tag);
   // <= so it does the animation when there is only one left, otherwise it removes them all
@@ -176,11 +191,17 @@ const removeTag = (tag) => {
   }
 };
 
+// This funtion removes all the tags while being clicked from the filter.The filter goes hidden.
+
 const removeTagAll = () => {
   selectedTags.value = [];
   // Makes the transition fade out when clicked on Clear btn
   isAddItem.value = false;
 };
+
+// This function first checks if there is anything to filter, while there aren't any tags active it will show all items(div's with jobs).
+// If atleast 1 or more tag(s) is/are actived it will look up what kind of item it is and will filter through the list and only show the items(div's with jobs) with the tag inside.
+// This way you can easily look for a job with the tag you selected.
 
 const filteredItems = computed(() => {
   if (selectedTags.value.length === 0) {
