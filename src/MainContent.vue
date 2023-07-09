@@ -14,7 +14,7 @@
             {{ tag }}
           </div>
           <div
-            class="cursor-pointer rounded-sm bg-primary hover:bg-veryDarkGrayishCyan p-2"
+            class="cursor-pointer rounded-sm bg-primary hover:bg-veryDarkGrayishCyan p-2 duration-300"
             @click="removeTag(tag)"
           >
             <img class="lg:w-5" src="/images/icon-remove.svg" alt="" />
@@ -70,7 +70,7 @@
               </div>
             </div>
             <div
-              class="text-black font-bold mb-2 hover:text-primary hover:cursor-pointer md:text-xl"
+              class="text-black font-bold mb-2 hover:text-primary hover:cursor-pointer md:text-xl duration-300"
             >
               {{ item.position }}
             </div>
@@ -92,21 +92,20 @@
           <div id="tags">
             <div class="flex-wrap gap-4 flex text-primary font-bold">
               <div
-                class="bg-filterTabs p-1 rounded-md cursor-pointer hover:text-white hover:bg-primary"
+                class="bg-filterTabs p-1 rounded-md cursor-pointer hover:text-white hover:bg-primary duration-300"
                 @click="toggleTag(item.role)"
               >
                 {{ item.role }}
               </div>
-
               <div
-                class="bg-filterTabs p-1 rounded-md cursor-pointer hover:text-white hover:bg-primary"
+                class="bg-filterTabs p-1 rounded-md cursor-pointer hover:text-white hover:bg-primary duration-300"
                 @click="toggleTag(item.level)"
               >
                 {{ item.level }}
               </div>
 
               <div
-                class="bg-filterTabs p-1 rounded-md cursor-pointer hover:text-white hover:bg-primary"
+                class="bg-filterTabs p-1 rounded-md cursor-pointer hover:text-white hover:bg-primary duration-300"
                 v-for="language in item.languages"
                 :key="language"
                 @click="toggleTag(language)"
@@ -226,4 +225,6 @@ const filteredItems = computed(() => {
 .slide-leave-active {
   transition: all 0.5s ease-in-out;
 }
+
+/* End slide transition */
 </style>
