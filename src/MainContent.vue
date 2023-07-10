@@ -203,16 +203,60 @@ const removeTagAll = () => {
 // If atleast 1 or more tag(s) is/are actived it will look up what kind of item it is and will filter through the list and only show the items(div's with jobs) with the tag inside.
 // This way you can easily look for a job with the tag you selected.
 
+// const filteredItems = computed(() => {
+//   if (selectedTags.value.length === 0) {
+//     return items;
+//   } else {
+//     return items.filter((item) => {
+//       return (
+//         selectedTags.value.includes(item.role) ||
+//         selectedTags.value.includes(item.level) ||
+//         item.languages.some((language) => selectedTags.value.includes(language))
+//       );
+//     });
+//   }
+// });
+
+const test = [item.level && item.role];
+const test2 = [item.level && item.languages];
+const test3 = [item.level && item.role && item.languages];
+
 const filteredItems = computed(() => {
   if (selectedTags.value.length === 0) {
     return items;
   } else {
     return items.filter((item) => {
-      return (
-        selectedTags.value.includes(item.role) ||
-        selectedTags.value.includes(item.level) ||
+      if (
+        selectedTags.value.includes(item.role) &&
+        selectedTags.value.includes(item.level)
+      ) {
+        return test;
+      }
+      if (
+        selectedTags.value.includes(item.role) &&
         item.languages.some((language) => selectedTags.value.includes(language))
-      );
+      ) {
+        return test2;
+      }
+      if (
+        selectedTags.value.includes(item.role) &&
+        selectedTags.value.includes(item.level) &&
+        item.languages.some((language) => selectedTags.value.includes(language))
+      ) {
+        return test3;
+      }
+
+      if (selectedTags.value.includes(item.role)) {
+        return item;
+      }
+      if (selectedTags.value.includes(item.level)) {
+        return item;
+      }
+      if (
+        item.languages.some((language) => selectedTags.value.includes(language))
+      ) {
+        return item;
+      }
     });
   }
 });
