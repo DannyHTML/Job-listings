@@ -203,16 +203,49 @@ const removeTagAll = () => {
 // If atleast 1 or more tag(s) is/are actived it will look up what kind of item it is and will filter through the list and only show the items(div's with jobs) with the tag inside.
 // This way you can easily look for a job with the tag you selected.
 
+const filteredItems = computed(() => {
+  if (selectedTags.value.length === 0) {
+    return items;
+  } else {
+    return items.filter((item) => {
+      return (
+        selectedTags.value.includes(item.role) ||
+        selectedTags.value.includes(item.level) ||
+        item.languages.some((language) => selectedTags.value.includes(language))
+      );
+    });
+  }
+});
+
 // const filteredItems = computed(() => {
 //   if (selectedTags.value.length === 0) {
 //     return items;
 //   } else {
 //     return items.filter((item) => {
-//       return (
-//         selectedTags.value.includes(item.role) ||
-//         selectedTags.value.includes(item.level) ||
-//         item.languages.some((language) => selectedTags.value.includes(language))
+//       const role = selectedTags.value.includes(item.role);
+//       const level = selectedTags.value.includes(item.level);
+//       const language = item.languages.some((language) =>
+//         selectedTags.value.includes(language)
 //       );
+
+//       if (role && level && language) {
+//         return item;
+//       }
+//       if (role && level) {
+//         return item;
+//       }
+//       if (level && language) {
+//         return item;
+//       }
+//       if (role) {
+//         return item;
+//       }
+//       if (level) {
+//         return item;
+//       }
+//       if (language) {
+//         return item;
+//       }
 //     });
 //   }
 // });
@@ -267,41 +300,6 @@ const removeTagAll = () => {
 //     });
 //   }
 // });
-
-const filteredItems = computed(() => {
-  if (selectedTags.value.length === 0) {
-    return items;
-  } else {
-    return items.filter((item) => {
-      const role = selectedTags.value.includes(item.role);
-      const level = selectedTags.value.includes(item.level);
-      const language = item.languages.some((language) =>
-        selectedTags.value.includes(language)
-      );
-
-      if (role && level && language) {
-        return true;
-      }
-      if (role && level) {
-        return true;
-      }
-      if (level && language) {
-        return true;
-      }
-      if (role) {
-        return true;
-      }
-      if (level) {
-        return true;
-      }
-      if (language) {
-        return true;
-      }
-
-      return false;
-    });
-  }
-});
 </script>
 
 <style scoped>
