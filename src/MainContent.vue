@@ -217,46 +217,88 @@ const removeTagAll = () => {
 //   }
 // });
 
-const test = [item.level && item.role];
-const test2 = [item.level && item.languages];
-const test3 = [item.level && item.role && item.languages];
+// const test = [item.level && item.role];
+// const test2 = [item.level && item.languages];
+// const test3 = [item.role && item.languages];
+// const test4 = [item.level && item.role && item.languages];
+
+// const filteredItems = computed(() => {
+//   if (selectedTags.value.length === 0) {
+//     return items;
+//   } else {
+//     return items.filter((item) => {
+//       if (
+//         selectedTags.value.includes(item.role) &&
+//         selectedTags.value.includes(item.level)
+//       ) {
+//         return test;
+//       }
+//       if (
+//         selectedTags.value.includes(item.level) &&
+//         item.languages.some((language) => selectedTags.value.includes(language))
+//       ) {
+//         return test2;
+//       }
+//       if (
+//         selectedTags.value.includes(item.role) &&
+//         item.languages.some((language) => selectedTags.value.includes(language))
+//       ) {
+//         return test3;
+//       }
+//       if (
+//         selectedTags.value.includes(item.role) &&
+//         selectedTags.value.includes(item.level) &&
+//         item.languages.some((language) => selectedTags.value.includes(language))
+//       ) {
+//         return test4;
+//       }
+
+//       if (selectedTags.value.includes(item.role)) {
+//         return item;
+//       }
+//       if (selectedTags.value.includes(item.level)) {
+//         return item;
+//       }
+//       if (
+//         item.languages.some((language) => selectedTags.value.includes(language))
+//       ) {
+//         return item;
+//       }
+//     });
+//   }
+// });
 
 const filteredItems = computed(() => {
   if (selectedTags.value.length === 0) {
     return items;
   } else {
     return items.filter((item) => {
-      if (
-        selectedTags.value.includes(item.role) &&
-        selectedTags.value.includes(item.level)
-      ) {
-        return test;
+      const role = selectedTags.value.includes(item.role);
+      const level = selectedTags.value.includes(item.level);
+      const language = item.languages.some((language) =>
+        selectedTags.value.includes(language)
+      );
+
+      if (role && level && language) {
+        return true;
       }
-      if (
-        selectedTags.value.includes(item.role) &&
-        item.languages.some((language) => selectedTags.value.includes(language))
-      ) {
-        return test2;
+      if (role && level) {
+        return true;
       }
-      if (
-        selectedTags.value.includes(item.role) &&
-        selectedTags.value.includes(item.level) &&
-        item.languages.some((language) => selectedTags.value.includes(language))
-      ) {
-        return test3;
+      if (level && language) {
+        return true;
+      }
+      if (role) {
+        return true;
+      }
+      if (level) {
+        return true;
+      }
+      if (language) {
+        return true;
       }
 
-      if (selectedTags.value.includes(item.role)) {
-        return item;
-      }
-      if (selectedTags.value.includes(item.level)) {
-        return item;
-      }
-      if (
-        item.languages.some((language) => selectedTags.value.includes(language))
-      ) {
-        return item;
-      }
+      return false;
     });
   }
 });
