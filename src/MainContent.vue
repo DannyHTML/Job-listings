@@ -151,7 +151,7 @@ const getImageSrc = (id) => {
 };
 
 // This function will show the correct alt-tag in the correct item(div's with jobs) by using id and index.
-// Using -1 so the values starts from 1 and not 0.
+// Using -1 so the values/index starts from 1 and not 0.
 
 const getImageId = (id) => {
   const imageIndex = id - 1;
