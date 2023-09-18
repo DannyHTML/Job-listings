@@ -120,16 +120,37 @@
   </TransitionGroup>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed, ref } from "vue";
 import data from "./assets/data.json";
 
 // This will give you acces to the json file date and gives you acces to the item's values inside the json file show you can work with it in your template.
 
-const item = ref(data);
+interface Data {
+  id: number;
+  company: string;
+  logo: string;
+  new: boolean;
+  featured: boolean;
+  position: string;
+  role: string;
+  level: string;
+  postedAt: string;
+  contract: string;
+  location: string;
+  languages: string[];
+  tools: string[];
+}
+
+const item = ref<Data[]>(data);
 const items = item.value;
 
-const images = [
+interface Images {
+  src: string;
+  alt: string;
+}
+
+const images = ref<Images[]>([
   { src: "./images/photosnap.svg", alt: "image 1" },
   { src: "./images/manage.svg", alt: "image 2" },
   { src: "./images/account.svg", alt: "image 3" },
@@ -140,38 +161,38 @@ const images = [
   { src: "./images/insure.svg", alt: "image 8" },
   { src: "./images/eyecam-co.svg", alt: "image 9" },
   { src: "./images/the-air-filter-company.svg", alt: "image 10" },
-];
+]);
 
 // This function will show the correct image in the correct item(div's with jobs) by using id and index.
 // Using -1 so the values starts from 1 and not 0.
 
-const getImageSrc = (id) => {
+const getImageSrc = (id: number) => {
   const imageIndex = id - 1;
-  return images[imageIndex].src;
+  return images.value[imageIndex].src;
 };
 
 // This function will show the correct alt-tag in the correct item(div's with jobs) by using id and index.
 // Using -1 so the values/index starts from 1 and not 0.
 
-const getImageId = (id) => {
+const getImageId = (id: number) => {
   const imageIndex = id - 1;
-  return images[imageIndex].src;
+  return images.value[imageIndex].alt;
 };
 
 //  This variable and funtion makes sure the filter is hidden by default, but when a tag is being selected it will show
 // When no filter array is empty, it will be hidden again.
 
-const isAddItem = ref(false);
+const isAddItem = ref<boolean>(false);
 
-const addItem = () => {
+const addItem = (): void => {
   isAddItem.value = true;
 };
 
 // This funtion adds the tag being clicked to the filter which will only appear while atleast 1 tag is active.
 
-const selectedTags = ref([]);
+const selectedTags = ref<string[]>([]);
 
-const toggleTag = (tag) => {
+const toggleTag = (tag): void => {
   if (selectedTags.value.includes(tag)) {
     selectedTags.value = selectedTags.value.filter((t) => t !== tag);
   } else {
@@ -183,17 +204,17 @@ const toggleTag = (tag) => {
 
 // This funtion removes the tag being clicked from the filter. Once no tags left, the filter goes hidden.
 
-const removeTag = (tag) => {
+const removeTag = (tag: string): void => {
   selectedTags.value = selectedTags.value.filter((t) => t !== tag);
   // <= so it does the animation when there is only one left, otherwise it removes them all
-  if (selectedTags.value <= 1) {
+  if (selectedTags.value.length <= 1) {
     isAddItem.value = false;
   }
 };
 
 // This funtion removes all the tags while being clicked from the filter.The filter goes hidden.
 
-const removeTagAll = () => {
+const removeTagAll = (): void => {
   selectedTags.value = [];
   // Makes the transition fade out when clicked on Clear btn
   isAddItem.value = false;
