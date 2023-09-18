@@ -192,7 +192,7 @@ const addItem = (): void => {
 
 const selectedTags = ref<string[]>([]);
 
-const toggleTag = (tag): void => {
+const toggleTag = (tag: string): void => {
   if (selectedTags.value.includes(tag)) {
     selectedTags.value = selectedTags.value.filter((t) => t !== tag);
   } else {
